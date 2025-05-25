@@ -1,0 +1,11 @@
+messages:
+  no-perms: "<red>You do not have permission to use this command.</red>"
+  left-rtpq: "<red>You have left the RTPQueue.</red>"
+  global-left-rtpq: "<red>%player% has left the RTPQueue.</red>"
+  joined-rtpq: "<green>You have joined the RTPQueue.</green>"
+  global-joined-rtpq: "<green>%player% has joined the RTPQueue.</green>"
+  config-reloaded: "<green>Config reloaded.</green>"
+  being-teleported: "<green>You are being teleported...</green>"
+settings:
+  minRadius: 100
+  maxRadius: 7500

@@ -1,0 +1,7 @@
+name: HeavenRTPQueue
+version: '2.0'
+main: com.yech.heavenRTPQueue.HeavenRTPQueue
+api-version: '1.21'
+authors:
+  - yech
+description: heavenrtpq plugin remake, more simple, fast, stable and optimized
