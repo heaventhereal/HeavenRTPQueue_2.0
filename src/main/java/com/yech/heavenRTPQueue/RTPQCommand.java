@@ -83,12 +83,15 @@ public class RTPQCommand extends BukkitCommand {
                     long seed = System.nanoTime();
                     nnrandomxoroshiro128plus random = new nnrandomxoroshiro128plus(seed);
 
-                    int n = random.nextInt(worlds.size());
+                    int n;
+                    do n = random.nextInt(worlds.size());
+                    while (n <= -1);
+
                     String worldName = worlds.get(n);
 
                     World world = Bukkit.getWorld(worldName);
-
                     assert world != null;
+
                     Location loc = generateRandomLocation(world, plugin);
 
                     Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
