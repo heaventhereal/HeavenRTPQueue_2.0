@@ -28,30 +28,36 @@ public class RTPQCommand extends BukkitCommand {
             this.plugin = plugin;
     }
 
-    World world = getServer().getWorld("world_minecraft_desert");
+    // World world = this.plugin.getConfig().getString("")
 
     @Override
     public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String @NotNull [] strings) {
         if (!(commandSender instanceof Player player)) return false;
 
-        String noperms = this.plugin.getConfig().getString("messages.no-perms", "<red>You do not have permission to use this command.</red>");
+        String noperms = this.plugin.getConfig().getString("messages.no-perms");
+        assert noperms != null;
         Component noPerms = miniMessage.deserialize(noperms);
 
-        String leftRtp = this.plugin.getConfig().getString("messages.left-rtpq", "<red>You have left the RTPQueue.</red>");
+        String leftRtp = this.plugin.getConfig().getString("messages.left-rtpq");
+        assert leftRtp != null;
         Component componentMessage = miniMessage.deserialize(leftRtp);
 
-        String globalleftRtpqmessage = this.plugin.getConfig().getString("messages.global-left-rtpq", "<red>%player% has left the RTPQueue.</red>");
+        String globalleftRtpqmessage = this.plugin.getConfig().getString("messages.global-left-rtpq");
+        assert globalleftRtpqmessage != null;
         globalleftRtpqmessage = globalleftRtpqmessage.replace("%player%", player.getName());
         Component globalComponentMessage = miniMessage.deserialize(globalleftRtpqmessage);
 
-        String joinRtpq = this.plugin.getConfig().getString("messages.joined-rtpq", "<green>You have joined the RTPQueue.</green>");
+        String joinRtpq = this.plugin.getConfig().getString("messages.joined-rtpq");
+        assert joinRtpq != null;
         Component componentJoinMessage = miniMessage.deserialize(joinRtpq);
 
-        String globalRtpqmessage = this.plugin.getConfig().getString("messages.global-joined-rtpq", "<green>%player% has joined the RTPQueue.</green>");
+        String globalRtpqmessage = this.plugin.getConfig().getString("messages.global-joined-rtpq");
+        assert globalRtpqmessage != null;
         globalRtpqmessage = globalRtpqmessage.replace("%player%", player.getName());
         Component globalJoinMessage = miniMessage.deserialize(globalRtpqmessage);
 
-        String teleportation = this.plugin.getConfig().getString("messages.being-teleported", "<green>You are being teleported...</green>");
+        String teleportation = this.plugin.getConfig().getString("messages.being-teleported");
+        assert teleportation != null;
         Component teleportMessage = miniMessage.deserialize(teleportation);
 
         if (commandSender.hasPermission("heaven.rtpq")) {
@@ -71,7 +77,19 @@ public class RTPQCommand extends BukkitCommand {
                 playersInQueue.add(player.getUniqueId());
 
                 if (playersInQueue.size() == 2) {
+                    ObjectArrayList<String> worldNames = (ObjectArrayList<String>) this.plugin.getConfig().getStringList("worlds");
+
+                    long seed = System.nanoTime();
+                    nnrandomxoroshiro128plus random = new nnrandomxoroshiro128plus(seed);
+
+                    int index = random.nextInt(worldNames.size());
+                    String mondoACaso = worldNames.get(index);
+
+                    World world = getServer().getWorld(mondoACaso);
+                    assert world != null;
+
                     Location loc = generateRandomLocation(world, plugin);
+
                     Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 
                         Player player1 = Bukkit.getPlayer(playersInQueue.get(0));
@@ -94,6 +112,7 @@ public class RTPQCommand extends BukkitCommand {
 
                         playersInQueue.remove(player1.getUniqueId());
                         playersInQueue.remove(player2.getUniqueId());
+
                     });
 
                 } else {

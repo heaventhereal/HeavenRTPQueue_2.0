@@ -9,3 +9,9 @@ messages:
 settings:
   minRadius: 100
   maxRadius: 7500
+  worlds:
+    - "world_minecraft_desert"
+    - "world_minecraft_plains"
+    - "world_minecraft_mushroom"
+    - "world_minecraft_snowy_fields"
+    - "world_minecraft_badlands"

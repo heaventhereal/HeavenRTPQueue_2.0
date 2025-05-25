@@ -20,7 +20,8 @@ public class RTPQReload extends BukkitCommand {
     @Override
     public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String @NotNull [] strings) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            String configreload = this.plugin.getConfig().getString("messages.config-reloaded", "<green>Config reloaded.</green>");
+            String configreload = this.plugin.getConfig().getString("messages.config-reloaded");
+            assert configreload != null;
             Component configReload = miniMessage.deserialize(configreload);
 
             commandSender.sendMessage(configReload);
