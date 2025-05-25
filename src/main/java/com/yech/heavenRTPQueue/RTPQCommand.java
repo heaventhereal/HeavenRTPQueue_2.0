@@ -78,7 +78,7 @@ public class RTPQCommand extends BukkitCommand {
                 playersInQueue.add(player.getUniqueId());
 
                 if (playersInQueue.size() == 2) {
-                    List<String> worlds = this.plugin.getConfig().getStringList("worlds");
+                    List<String> worlds = this.plugin.getConfig().getStringList("settings.worlds");
 
                     long seed = System.nanoTime();
                     nnrandomxoroshiro128plus random = new nnrandomxoroshiro128plus(seed);
