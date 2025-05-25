@@ -12,6 +12,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.UUID;
 
 import static com.yech.heavenRTPQueue.RandomLocationGenerator.generateRandomLocation;
@@ -77,7 +78,7 @@ public class RTPQCommand extends BukkitCommand {
                 playersInQueue.add(player.getUniqueId());
 
                 if (playersInQueue.size() == 2) {
-                    ObjectArrayList<String> worldNames = (ObjectArrayList<String>) this.plugin.getConfig().getStringList("worlds");
+                    List<String> worldNames = this.plugin.getConfig().getStringList("worlds");
 
                     long seed = System.nanoTime();
                     nnrandomxoroshiro128plus random = new nnrandomxoroshiro128plus(seed);
